@@ -14,7 +14,7 @@
       --text-main: #ffffff;
       --text-muted: #a3a3a3;
       --accent-color: #60a5fa;
-      --heading-gray: #d1d5db; /* ইউনিক লাইট-গ্রে কালার */
+      --heading-gray: #d1d5db;
     }
 
     * {
@@ -66,34 +66,32 @@
 
     .profile-info {
       flex: 1;
-      min-width: 0; /* নাম যেন বক্সের বাইরে না যায় */
+      min-width: 0;
     }
 
     .profile-info h1 {
-      font-size: clamp(1.2rem, 5.5vw, 2rem); /* স্ক্রিন অনুযায়ী ফন্ট সাইজ অ্যাডজাস্ট হয়ে এক লাইনে থাকবে */
+      font-size: clamp(1.2rem, 5.5vw, 2rem);
       font-weight: 700;
       letter-spacing: -0.5px;
       background: linear-gradient(to right, #fff, #a3a3a3);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      white-space: nowrap; /* নাম ভেঙে নিচে নামবে না */
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-bottom: 8px; /* নামের নিচে সামান্য গ্যাপ রাখার জন্য */
     }
 
-    /* Hero Bio Section */
+    /* Hero Bio Section (Names er niche) */
     .hero-bio {
-      margin-top: 16px;
       margin-bottom: 12px;
     }
 
     .main-title {
-      font-size: 1.15rem;
-      color: var(--heading-gray); /* ইউনিক ধূসর কালার */
+      font-size: 1.05rem;
+      color: var(--heading-gray);
       font-weight: 600;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 4px;
     }
 
     .sub-intro {
@@ -113,7 +111,7 @@
       border-radius: 20px;
       font-size: 0.85rem;
       color: #d1d5db;
-      margin-top: 10px;
+      margin-top: 8px;
       margin-bottom: 20px;
     }
 
@@ -185,13 +183,11 @@
 
     .section-header {
       font-size: 1.15rem;
-      color: var(--heading-gray); /* ইউনিক ধূসর কালার */
+      color: var(--heading-gray);
       font-weight: 600;
       margin-bottom: 16px;
       padding-bottom: 6px;
       border-bottom: 1px solid var(--border-color);
-      text-transform: none;
-      letter-spacing: normal;
     }
 
     /* Projects Grid */
@@ -336,13 +332,13 @@
       <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
       <div class="profile-info">
         <h1>AVIJITH DEBNATH</h1>
+        
+        <!-- Hero Bio Section (Moved under the name) -->
+        <div class="hero-bio">
+          <div class="main-title">Tech Explorer & Hobbyist Creator</div>
+          <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
+        </div>
       </div>
-    </div>
-
-    <!-- Hero Bio Section -->
-    <div class="hero-bio">
-      <div class="main-title">Tech Explorer & Hobbyist Creator</div>
-      <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
     </div>
 
     <!-- Interactive Status Badge -->
