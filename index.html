@@ -1,1 +1,453 @@
-5644adada8500ed5648167e5682a13aa7f3c7d28
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVIJITH DEBNATH</title>
+  <style>
+    :root {
+      --bg-color: #0a0a0a;
+      --card-bg: #141414;
+      --border-color: #262626;
+      --border-hover: #404040;
+      --text-main: #ffffff;
+      --text-muted: #a3a3a3;
+      --accent-color: #60a5fa;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 16px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      max-width: 680px;
+      width: 100%;
+      padding: 40px;
+      box-sizing: border-box;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-header {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 2px solid var(--border-hover);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-info h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, #a3a3a3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .socials {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background-color: #1a1a1a;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-btn:hover {
+      background-color: #262626;
+      color: var(--text-main);
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.15);
+    }
+
+    .social-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .project-card {
+      background-color: #1a1a1a;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s ease;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      background-color: #1f1f1f;
+    }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-title span {
+      font-size: 0.85rem;
+      color: var(--accent-color);
+      font-weight: 400;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .skills-container {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .skill-badge {
+      background-color: #1a1a1a;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .contact-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    a.text-link {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a.text-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 24px;
+      }
+      .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Header Section -->
+    <div class="profile-header">
+      <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
+      <div>
+        <h1>AVIJITH DEBNATH</h1>
+        <!-- Hero Bio / Tagline Section -->
+<div class="hero-bio">
+    <h2 class="main-title">Tech Explorer & Hobbyist Creator</h2>
+    <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
+</div>
+
+<!-- Interactive Status Badge -->
+<div class="status-badge">
+    <span class="pulse-dot"></span>
+    <span>Learning & Experimenting with Code</span>
+</div>
+
+<style>
+    .hero-bio {
+        margin-bottom: 12px;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+        color: #f3f4f6;
+        font-weight: 700;
+        margin: 0 0 6px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .sub-intro {
+        font-size: 0.9rem;
+        color: #9ca3af;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #1a1a1a;
+        border: 1px solid #333333;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: #d1d5db;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+    }
+</style>
+
+        
+        <div class="socials">
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/avijith-debnath-178943412" target="_blank" class="social-btn" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/aavijith" target="_blank" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/aavijith" target="_blank" class="social-btn" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+          </a>
+          <!-- X (Twitter) -->
+          <a href="https://x.com/avijith_debnath" target="_blank" class="social-btn" title="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/aavijith" target="_blank" class="social-btn" title="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.27-2.42 5.82a8.2 8.2 0 0 1-5.83 2.42c-1.48 0-2.93-.39-4.2-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.4c0-4.54 3.7-8.24 8.25-8.24zm4.52 11.75c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06s-1.05-.39-2-1.23c-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.41-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.31z"/></svg>
+          </a>
+          <!-- Email -->
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aavijith0@gmail.com" target="_blank" class="social-btn" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Projects Section -->
+    <section>
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <!-- VDOWNLOADYBOT -->
+        <a href="https://t.me/VDOWNLOADYBOT" target="_blank" class="project-card">
+          <div class="project-title">VDOWNLOADYBOT <span>Telegram Bot ↗</span></div>
+          <p class="project-desc">A fast and free all-in-one social media video downloader bot built for seamless media processing.</p>
+        </a>
+
+        <!-- Movies App (Direct Download) -->
+        <a href="https://www.appcreator24.com/app4123288-7vqe5y" download class="project-card">
+          <div class="project-title">Movies <span>Download App ⬇</span></div>
+          <p class="project-desc">A mobile streaming for seamless movie and media entertainment.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section>
+<!-- Personal Info & Background Section -->
+<div class="personal-section">
+    <h3 class="section-title">BACKGROUND & INTERESTS</h3>
+
+    <!-- Current Job -->
+    <div class="info-card">
+        <div class="card-icon">💼</div>
+        <div class="card-content">
+            <h4>Current Professional Roles</h4>
+            <p><span class="job-title">Customer Care Executive</span> — Wi-Fi Internet Office</p>
+            <p><span class="job-title">Teacher</span> — Kindergarten School</p>
+        </div>
+    </div>
+
+    <!-- Education -->
+    <div class="info-card">
+        <div class="card-icon">🎓</div>
+        <div class="card-content">
+            <h4>Education</h4>
+            <p>BBA Honours in Accounting</p>
+        </div>
+    </div>
+
+    <!-- Interests & Hobbies -->
+    <div class="info-card">
+        <div class="card-icon">🚀</div>
+        <div class="card-content">
+            <h4>Interests & Hobbies</h4>
+            <p>Exploring new technologies, experimenting with apps and projects, traveling, and experiencing nature.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .personal-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        color: #9ca3af;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .info-card {
+        background-color: #121212;
+        border: 1px solid #262626;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        transition: border-color 0.2s ease;
+    }
+
+    .info-card:hover {
+        border-color: #404040;
+    }
+
+    .card-icon {
+        font-size: 1.2rem;
+        padding-top: 2px;
+    }
+
+    .card-content h4 {
+        font-size: 0.95rem;
+        color: #f3f4f6;
+        margin: 0 0 6px 0;
+        font-weight: 600;
+    }
+
+    .card-content p {
+        font-size: 0.85rem;
+        color: #9ca3af;
+        margin: 0 0 4px 0;
+        line-height: 1.4;
+    }
+
+    .job-title {
+        color: #e5e7eb;
+        font-weight: 500;
+    }
+</style>
+
+      <h2>Tech Stack & Skills</h2>
+      <div class="skills-container">
+        <div class="skill-badge">Python</div>
+        <div class="skill-badge">Telegram Bot API</div>
+        <div class="skill-badge">HTML5 / CSS3</div>
+        <div class="skill-badge">Git & GitHub</div>
+        <div class="skill-badge">App Development</div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+      <h2>Contact</h2>
+      <p class="contact-text">
+        Feel free to reach out via email at 
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aavijith0@gmail.com" target="_blank" class="text-link">aavijith0@gmail.com</a> 
+        or connect through my social profiles.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
