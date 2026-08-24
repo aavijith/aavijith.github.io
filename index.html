@@ -5,296 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AVIJITH DEBNATH</title>
   <style>
-    :root {
-      --bg-color: #0a0a0a;
-      --card-bg: #141414;
-      --border-color: #262626;
-      --border-hover: #404040;
-      --text-main: #ffffff;
-      --text-muted: #a3a3a3;
-      --accent-color: #60a5fa;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 30px 16px;
-      margin: 0;
-      box-sizing: border-box;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      max-width: 680px;
-      width: 100%;
-      padding: 40px;
-      box-sizing: border-box;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-    }
-
-    .profile-header {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 20px;
-      object-fit: cover;
-      border: 2px solid var(--border-hover);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    }
-
-    .profile-info h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(to right, #fff, #a3a3a3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      margin-top: 6px;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .socials {
-      margin-top: 16px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      background-color: #1a1a1a;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .social-btn:hover {
-      background-color: #262626;
-      color: var(--text-main);
-      border-color: var(--accent-color);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.15);
-    }
-
-    .social-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    section {
-      margin-top: 32px;
-    }
-
-    h2 {
-      font-size: 1.15rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .project-card {
-      background-color: #1a1a1a;
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 20px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.25s ease;
-      display: block;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-      background-color: #1f1f1f;
-    }
-
-    .project-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .project-title span {
-      font-size: 0.85rem;
-      color: var(--accent-color);
-      font-weight: 400;
-    }
-
-    .project-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .skills-container {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .skill-badge {
-      background-color: #1a1a1a;
-      border: 1px solid var(--border-color);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .contact-text {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    a.text-link {
-      color: var(--accent-color);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    a.text-link:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        padding: 24px;
-      }
-      .profile-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
+    body { background-color: #0a0a0a; color: #e5e5e5; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+    .card { background-color: #141414; border: 1px solid #262626; border-radius: 20px; max-width: 640px; width: 100%; padding: 36px; box-sizing: border-box; }
+    .profile-header { display: flex; gap: 20px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .avatar { width: 90px; height: 90px; border-radius: 18px; object-fit: cover; border: 1px solid #333; }
+    h1 { margin: 0; font-size: 1.8rem; color: #fff; }
+    .subtitle { color: #a3a3a3; margin-top: 6px; font-size: 0.95rem; }
+    .socials { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #1f1f1f; border: 1px solid #333; border-radius: 10px; color: #a3a3a3; text-decoration: none; transition: all 0.2s ease; }
+    .social-btn:hover { background-color: #2a2a2a; color: #fff; border-color: #555; transform: translateY(-2px); }
+    .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    h2 { font-size: 1.25rem; margin-top: 28px; margin-bottom: 12px; color: #fff; }
+    ul { padding-left: 20px; margin: 0; line-height: 1.6; color: #d4d4d4; }
+    li { margin-bottom: 8px; }
+    a.text-link { color: #60a5fa; text-decoration: none; }
+    a.text-link:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="card">
-    <!-- Header Section -->
     <div class="profile-header">
       <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
       <div>
         <h1>AVIJITH DEBNATH</h1>
-     
-  <!-- Hero Bio / Tagline Section -->
-    <div class="hero-bio">
-        <h2 class="main-title">Tech Explorer & Hobbyist Creator</h2>
-        <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
-    </div>
-
-    <!-- Interactive Status Badge -->
-    <div class="status-badge">
-        <span class="pulse-dot"></span>
-        <span>Learning & Experimenting with Code</span>
-    </div>
-</div>
-
-<style>
-    .profile-header {
-        text-align: left; /* আপনার সাইটের লেআউট অনুযায়ী center বা left করে নিতে পারেন */
-        margin-bottom: 20px;
-    }
-
-    .my-name {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin: 0 0 4px 0;
-        letter-spacing: 0.5px;
-    }
-
-    .hero-bio {
-        margin-bottom: 10px;
-    }
-
-    .main-title {
-        font-size: 0.95rem; /* ফন্ট সাইজ ছোট করা হয়েছে যাতে বোল্ড বা বড় না লাগে */
-        color: #9ca3af;
-        font-weight: 500;
-        text-transform: none; /* বড় হাতের অক্ষর (Uppercase) হওয়া থেকে আটকানোর জন্য */
-        margin: 0 0 4px 0;
-    }
-
-    .sub-intro {
-        font-size: 0.85rem;
-        color: #6b7280;
-        margin: 0;
-    }
-
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background-color: #1a1a1a;
-        border: 1px solid #333333;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        color: #d1d5db;
-        margin-top: 8px;
-    }
-
-    .pulse-dot {
-        width: 6px;
-        height: 6px;
-        background-color: #10b981;
-        border-radius: 50%;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-        70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
-        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-</style>
-
-
+        <div class="subtitle">Creator • Developer</div>
         
         <div class="socials">
           <!-- LinkedIn -->
@@ -325,133 +59,19 @@
       </div>
     </div>
 
-    <!-- Featured Projects Section -->
-    <section>
-      <h2>Featured Projects</h2>
-      <div class="projects-grid">
-        <!-- VDOWNLOADYBOT -->
-        <a href="https://t.me/VDOWNLOADYBOT" target="_blank" class="project-card">
-          <div class="project-title">VDOWNLOADYBOT <span>Telegram Bot ↗</span></div>
-          <p class="project-desc">A fast and free all-in-one social media video downloader bot built for seamless media processing.</p>
-        </a>
+    <h2>Work</h2>
+    <ul>
+      <li><strong>Creator & Developer</strong>
+        <ul>
+          <li>Add details about your projects or work experience here.</li>
+        </ul>
+      </li>
+    </ul>
 
-        <!-- Movies App (Direct Download) -->
-        <a href="https://www.appcreator24.com/app4123288-7vqe5y" download class="project-card">
-          <div class="project-title">Movies <span>Download App ⬇</span></div>
-          <p class="project-desc">A mobile streaming for seamless movie and media entertainment.</p>
-        </a>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section>
-<!-- Personal Info & Background Section -->
-<div class="personal-section">
-    <h3 class="section-title">BACKGROUND & INTERESTS</h3>
-
-    <!-- Current Job -->
-    <div class="info-card">
-        <div class="card-icon">💼</div>
-        <div class="card-content">
-            <h4>Current Professional Roles</h4>
-            <p><span class="job-title">Customer Care Executive</span> — Wi-Fi Internet Office</p>
-            <p><span class="job-title">Teacher</span> — Kindergarten School</p>
-        </div>
-    </div>
-
-    <!-- Education -->
-    <div class="info-card">
-        <div class="card-icon">🎓</div>
-        <div class="card-content">
-            <h4>Education</h4>
-            <p>BBA Honours in Accounting</p>
-        </div>
-    </div>
-
-    <!-- Interests & Hobbies -->
-    <div class="info-card">
-        <div class="card-icon">🚀</div>
-        <div class="card-content">
-            <h4>Interests & Hobbies</h4>
-            <p>Exploring new technologies, experimenting with apps and projects, traveling, and experiencing nature.</p>
-        </div>
-    </div>
-</div>
-
-<style>
-    .personal-section {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-
-    .section-title {
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        color: #9ca3af;
-        margin-bottom: 15px;
-        text-transform: uppercase;
-    }
-
-    .info-card {
-        background-color: #121212;
-        border: 1px solid #262626;
-        border-radius: 12px;
-        padding: 14px 18px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        transition: border-color 0.2s ease;
-    }
-
-    .info-card:hover {
-        border-color: #404040;
-    }
-
-    .card-icon {
-        font-size: 1.2rem;
-        padding-top: 2px;
-    }
-
-    .card-content h4 {
-        font-size: 0.95rem;
-        color: #f3f4f6;
-        margin: 0 0 6px 0;
-        font-weight: 600;
-    }
-
-    .card-content p {
-        font-size: 0.85rem;
-        color: #9ca3af;
-        margin: 0 0 4px 0;
-        line-height: 1.4;
-    }
-
-    .job-title {
-        color: #e5e7eb;
-        font-weight: 500;
-    }
-</style>
-
-      <h2>Tech Stack & Skills</h2>
-      <div class="skills-container">
-        <div class="skill-badge">Python</div>
-        <div class="skill-badge">Telegram Bot API</div>
-        <div class="skill-badge">HTML5 / CSS3</div>
-        <div class="skill-badge">Git & GitHub</div>
-        <div class="skill-badge">App Development</div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section>
-      <h2>Contact</h2>
-      <p class="contact-text">
-        Feel free to reach out via email at 
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aavijith0@gmail.com" target="_blank" class="text-link">aavijith0@gmail.com</a> 
-        or connect through my social profiles.
-      </p>
-    </section>
+    <h2>Contact</h2>
+    <ul>
+      <li>Feel free to reach out via email at <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aavijith0@gmail.com" target="_blank" class="text-link">aavijith0@gmail.com</a> or connect through my social profiles.</li>
+    </ul>
   </div>
 </body>
 </html>
