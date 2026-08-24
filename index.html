@@ -194,14 +194,14 @@
       border-radius: 12px;
       color: var(--text-muted);
       text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease-out;
+      will-change: transform;
     }
 
     .social-btn:hover {
       background-color: #262626;
       color: var(--text-main);
       border-color: var(--accent-color);
-      transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(96, 165, 250, 0.15);
     }
 
@@ -237,13 +237,34 @@
       padding: 20px;
       text-decoration: none;
       color: inherit;
-      transition: all 0.25s ease;
+      transition: transform 0.15s ease, border-color 0.25s ease, background-color 0.25s ease;
       display: block;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: var(--mouse-y, 50%);
+      left: var(--mouse-x, 50%);
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(96,165,250,0.25), transparent 70%);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
     }
 
     .project-card:hover {
       border-color: var(--accent-color);
-      transform: translateY(-2px);
       background-color: #1f1f1f;
     }
 
@@ -369,6 +390,29 @@
       display: block;
     }
 
+    /* Quote spark particles */
+    .spark {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      pointer-events: none;
+      z-index: 999;
+      animation: sparkFly 0.7s ease-out forwards;
+    }
+
+    @keyframes sparkFly {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0.3);
+      }
+    }
+
     @media (max-width: 600px) {
       .card {
         padding: 24px;
@@ -415,9 +459,6 @@
         </a>
         <a href="https://wa.me/aavijith" target="_blank" rel="noopener" class="social-btn" title="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.27-2.42 5.82a8.2 8.2 0 0 1-5.83 2.42c-1.48 0-2.93-.39-4.2-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.4c0-4.54 3.7-8.24 8.25-8.24zm4.52 11.75c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06s-1.05-.39-2-1.23c-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.41-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.31z"/></svg>
-        </a>
-        <a href="mailto:aavijith0@gmail.com" class="social-btn" title="Email">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </a>
       </div>
     </div>
@@ -480,6 +521,38 @@
       </div>
     </section>
 
+    <!-- Personal Info -->
+    <section>
+      <h2 class="section-header">Personal Info</h2>
+
+      <div class="info-card">
+        <div class="card-icon">📍</div>
+        <div class="card-content">
+          <h3>Location</h3>
+          <p>Mymensingh, Bangladesh</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">🗣️</div>
+        <div class="card-content">
+          <h3>Languages</h3>
+          <p>Bengali, English, Hindi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <section>
+      <div style="position: relative; text-align: center; padding: 28px 20px; margin: 0 4px;">
+        <div style="font-size: 3rem; line-height: 0; color: var(--accent-color); opacity: 0.35; font-family: Georgia, serif; margin-bottom: 6px;">"</div>
+        <p id="quoteText" data-text="Curious mind, always exploring something new." style="font-size: 1.15rem; font-weight: 600; font-style: italic; letter-spacing: 0.2px; background: linear-gradient(90deg, #93c5fd, #60a5fa, #93c5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: -18px; cursor: pointer; user-select: none;">
+          Curious mind, always exploring something new.
+        </p>
+        <div style="width: 48px; height: 3px; background: linear-gradient(90deg, transparent, var(--accent-color), transparent); margin: 16px auto 0;"></div>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section>
       <h2 class="section-header">Contact</h2>
@@ -505,6 +578,107 @@
     });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // --- Quote scramble/decode effect on hover ---
+    const quoteEl = document.getElementById('quoteText');
+    const originalText = quoteEl.dataset.text;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?*+';
+    let scrambleInterval = null;
+
+    function scrambleReveal() {
+      if (scrambleInterval) clearInterval(scrambleInterval);
+      let progress = 0;
+      const totalFrames = originalText.length * 3;
+      let frame = 0;
+
+      scrambleInterval = setInterval(() => {
+        let output = '';
+        const revealCount = Math.floor((frame / totalFrames) * originalText.length);
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === ' ') {
+            output += ' ';
+          } else if (i < revealCount) {
+            output += originalText[i];
+          } else {
+            output += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        quoteEl.textContent = output;
+        frame++;
+        if (frame > totalFrames) {
+          quoteEl.textContent = originalText;
+          clearInterval(scrambleInterval);
+        }
+      }, 25);
+    }
+
+    quoteEl.addEventListener('mouseenter', scrambleReveal);
+
+    // --- Click spark burst ---
+    quoteEl.addEventListener('click', (e) => {
+      scrambleReveal();
+      const sparkCount = 14;
+      for (let i = 0; i < sparkCount; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+        const angle = (Math.PI * 2 * i) / sparkCount;
+        const distance = 40 + Math.random() * 30;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        spark.style.left = e.clientX + 'px';
+        spark.style.top = e.clientY + 'px';
+        spark.style.setProperty('--dx', dx + 'px');
+        spark.style.setProperty('--dy', dy + 'px');
+        spark.style.background = i % 2 === 0 ? '#60a5fa' : '#93c5fd';
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 700);
+      }
+    });
+
+    // --- Project card spotlight + tilt effect ---
+    document.querySelectorAll('.project-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    });
+
+    // --- Magnetic hover effect on social icons ---
+    const magnetRadius = 70;
+    const magnetStrength = 0.4;
+
+    document.addEventListener('mousemove', (e) => {
+      document.querySelectorAll('.social-btn').forEach((btn) => {
+        const rect = btn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < magnetRadius) {
+          const pull = (1 - distance / magnetRadius) * magnetStrength;
+          btn.style.transform = `translate(${dx * pull}px, ${dy * pull}px) translateY(-2px)`;
+        } else {
+          btn.style.transform = 'translate(0, 0)';
+        }
+      });
     });
   </script>
 
