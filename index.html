@@ -220,76 +220,83 @@
       <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
       <div>
         <h1>AVIJITH DEBNATH</h1>
-        <!-- Hero Bio / Tagline Section -->
-<div class="hero-bio">
-    <h2 class="main-title">Tech Explorer & Hobbyist Creator</h2>
-    <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
-</div>
+        <!-- Profile Header Section -->
+<div class="profile-header">
+    <h1 class="my-name">AVIJITH DEBNATH</h1>
+    
+    <!-- Hero Bio / Tagline Section -->
+    <div class="hero-bio">
+        <h2 class="main-title">Tech Explorer & Hobbyist Creator</h2>
+        <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
+    </div>
 
-<!-- Interactive Status Badge -->
-<div class="status-badge">
-    <span class="pulse-dot"></span>
-    <span>Learning & Experimenting with Code</span>
+    <!-- Interactive Status Badge -->
+    <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>Learning & Experimenting with Code</span>
+    </div>
 </div>
 
 <style>
+    .profile-header {
+        text-align: left; /* আপনার সাইটের লেআউট অনুযায়ী center বা left করে নিতে পারেন */
+        margin-bottom: 20px;
+    }
+
+    .my-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 4px 0;
+        letter-spacing: 0.5px;
+    }
+
     .hero-bio {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .main-title {
-        font-size: 1.5rem;
-        color: #f3f4f6;
-        font-weight: 700;
-        margin: 0 0 6px 0;
-        letter-spacing: -0.5px;
+        font-size: 0.95rem; /* ফন্ট সাইজ ছোট করা হয়েছে যাতে বোল্ড বা বড় না লাগে */
+        color: #9ca3af;
+        font-weight: 500;
+        text-transform: none; /* বড় হাতের অক্ষর (Uppercase) হওয়া থেকে আটকানোর জন্য */
+        margin: 0 0 4px 0;
     }
 
     .sub-intro {
-        font-size: 0.9rem;
-        color: #9ca3af;
+        font-size: 0.85rem;
+        color: #6b7280;
         margin: 0;
-        line-height: 1.5;
     }
 
     .status-badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         background-color: #1a1a1a;
         border: 1px solid #333333;
-        padding: 6px 14px;
+        padding: 4px 10px;
         border-radius: 20px;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: #d1d5db;
-        margin-top: 10px;
-        margin-bottom: 20px;
+        margin-top: 8px;
     }
 
     .pulse-dot {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         background-color: #10b981;
         border-radius: 50%;
-        box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
         animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-        0% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-        }
-        70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-        }
-        100% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-        }
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 </style>
+
 
         
         <div class="socials">
