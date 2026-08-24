@@ -61,17 +61,55 @@
 
     @media (min-width: 900px) {
       .card {
-        max-width: 880px;
-        padding: 56px;
+        max-width: 980px;
+        padding: 48px;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-right: 1px solid var(--border-color);
+        padding-right: 32px;
       }
 
       .profile-header {
-        gap: 28px;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .profile-info h1 {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+      }
+
+      .hero-bio {
+        text-align: center;
       }
 
       .avatar {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
+      }
+
+      .actions-row {
+        margin-bottom: 0;
+      }
+
+      .socials {
+        justify-content: center;
+      }
+
+      .main-content section:first-child {
+        margin-top: 0;
       }
 
       .projects-grid {
@@ -299,16 +337,31 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      transition: border-color 0.2s ease;
+      transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease;
     }
 
     .info-card:hover {
-      border-color: var(--border-hover);
+      border-color: var(--accent-color);
+      background-color: #161616;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(96, 165, 250, 0.12);
     }
 
     .card-icon {
       font-size: 1.2rem;
       padding-top: 2px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+      perspective: 400px;
+    }
+
+    .info-card:hover .card-icon {
+      animation: iconFlip 0.6s ease;
+    }
+
+    @keyframes iconFlip {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
     }
 
     .card-content h3 {
@@ -424,27 +477,28 @@
 
   <div class="card">
 
-    <!-- Top Profile -->
-    <div class="profile-header">
-      <img src="photo.jpg" alt="Avijith Debnath" class="avatar" />
-      <div class="profile-info">
-        <h1>AVIJITH DEBNATH</h1>
-        <div class="hero-bio">
-          <div class="main-title">Tech Explorer & Hobbyist Creator</div>
-          <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
+    <div class="sidebar">
+      <!-- Top Profile -->
+      <div class="profile-header">
+        <img src="photo.jpg" alt="Avijith Debnath" class="avatar" />
+        <div class="profile-info">
+          <h1>AVIJITH DEBNATH</h1>
+          <div class="hero-bio">
+            <div class="main-title">Tech Explorer & Hobbyist Creator</div>
+            <p class="sub-intro">Tech enthusiast, curious learner, and creative tinkerer.</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Status Badge -->
-    <div class="status-badge">
-      <span class="pulse-dot"></span>
-      <span>Learning & Experimenting with Code</span>
-    </div>
+      <!-- Status Badge -->
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>Learning & Experimenting with Code</span>
+      </div>
 
-    <!-- Social Links -->
-    <div class="actions-row">
-      <div class="socials">
+      <!-- Social Links -->
+      <div class="actions-row">
+        <div class="socials">
         <a href="https://www.linkedin.com/in/avijith-debnath-178943412" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
         </a>
@@ -460,8 +514,11 @@
         <a href="https://wa.me/aavijith" target="_blank" rel="noopener" class="social-btn" title="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.27-2.42 5.82a8.2 8.2 0 0 1-5.83 2.42c-1.48 0-2.93-.39-4.2-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.4c0-4.54 3.7-8.24 8.25-8.24zm4.52 11.75c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06s-1.05-.39-2-1.23c-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.41-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.31z"/></svg>
         </a>
+        </div>
       </div>
     </div>
+
+    <div class="main-content">
 
     <!-- Featured Projects -->
     <section>
@@ -562,6 +619,8 @@
         or connect through my social profiles.
       </p>
     </section>
+
+    </div>
 
   </div>
 
