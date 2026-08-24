@@ -14,6 +14,7 @@
       --text-main: #ffffff;
       --text-muted: #a3a3a3;
       --accent-color: #60a5fa;
+      --heading-gray: #d1d5db; /* একদম পারফেক্ট ইউনিক লাইট-গ্রে কালার */
     }
 
     * {
@@ -79,8 +80,7 @@
 
     .main-title {
       font-size: 1.15rem;
-      /* এখানে Featured Projects লেখার হুবহু কালার কোড বসানো হয়েছে */
-      color: #e5e7eb; 
+      color: var(--heading-gray); /* ইউনিক ধূসর কালার */
       font-weight: 600;
       margin-bottom: 8px;
       padding-bottom: 6px;
@@ -176,13 +176,13 @@
 
     .section-header {
       font-size: 1.15rem;
-      color: #e5e7eb;
+      color: var(--heading-gray); /* ইউনিক ধূসর কালার */
       font-weight: 600;
       margin-bottom: 16px;
       padding-bottom: 6px;
       border-bottom: 1px solid var(--border-color);
-      text-transform: uppercase; /* সেকশন হেডারগুলো বড় হাতের রেখেই স্ট্যান্ডার্ড রাখা হয়েছে */
-      letter-spacing: 0.5px;
+      text-transform: none; /* আগের মতো স্বাভাবিক কেইস রাখা হয়েছে */
+      letter-spacing: normal;
     }
 
     /* Projects Grid */
