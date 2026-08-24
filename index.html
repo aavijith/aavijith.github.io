@@ -61,7 +61,8 @@
 
     @media (min-width: 900px) {
       .card {
-        max-width: 980px;
+        max-width: clamp(880px, 78vw, 1180px);
+        width: 100%;
         padding: 48px;
         display: grid;
         grid-template-columns: 260px 1fr;
@@ -106,6 +107,17 @@
 
       .socials {
         justify-content: center;
+        gap: 8px;
+      }
+
+      .socials .social-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .socials .social-btn svg {
+        width: 15px;
+        height: 15px;
       }
 
       .main-content section:first-child {
@@ -114,6 +126,19 @@
 
       .projects-grid {
         grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .card {
+        grid-template-columns: 300px 1fr;
+        padding: 60px;
+        gap: 56px;
+      }
+
+      .avatar {
+        width: 130px;
+        height: 130px;
       }
     }
 
