@@ -14,7 +14,7 @@
       --text-main: #ffffff;
       --text-muted: #a3a3a3;
       --accent-color: #60a5fa;
-      --heading-gray: #d1d5db; /* একদম পারফেক্ট ইউনিক লাইট-গ্রে কালার */
+      --heading-gray: #d1d5db; /* ইউনিক লাইট-গ্রে কালার */
     }
 
     * {
@@ -51,6 +51,7 @@
       gap: 20px;
       align-items: center;
       margin-bottom: 20px;
+      width: 100%;
     }
 
     .avatar {
@@ -63,13 +64,21 @@
       flex-shrink: 0;
     }
 
+    .profile-info {
+      flex: 1;
+      min-width: 0; /* নাম যেন বক্সের বাইরে না যায় */
+    }
+
     .profile-info h1 {
-      font-size: 2rem;
+      font-size: clamp(1.2rem, 5.5vw, 2rem); /* স্ক্রিন অনুযায়ী ফন্ট সাইজ অ্যাডজাস্ট হয়ে এক লাইনে থাকবে */
       font-weight: 700;
       letter-spacing: -0.5px;
       background: linear-gradient(to right, #fff, #a3a3a3);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      white-space: nowrap; /* নাম ভেঙে নিচে নামবে না */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Hero Bio Section */
@@ -181,7 +190,7 @@
       margin-bottom: 16px;
       padding-bottom: 6px;
       border-bottom: 1px solid var(--border-color);
-      text-transform: none; /* আগের মতো স্বাভাবিক কেইস রাখা হয়েছে */
+      text-transform: none;
       letter-spacing: normal;
     }
 
@@ -325,7 +334,7 @@
     <!-- Top Profile (Avatar & Name side-by-side) -->
     <div class="profile-header">
       <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
-      <div>
+      <div class="profile-info">
         <h1>AVIJITH DEBNATH</h1>
       </div>
     </div>
