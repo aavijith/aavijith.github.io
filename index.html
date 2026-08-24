@@ -13,7 +13,6 @@
       --text-main: #ffffff;
       --text-muted: #a3a3a3;
       --accent-color: #60a5fa;
-      --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
     }
 
     body {
@@ -47,10 +46,6 @@
       align-items: center;
       margin-bottom: 32px;
       flex-wrap: wrap;
-    }
-
-    .avatar-container {
-      position: relative;
     }
 
     .avatar {
@@ -128,7 +123,6 @@
       padding-bottom: 8px;
     }
 
-    /* Project Cards Grid */
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -175,7 +169,6 @@
       line-height: 1.5;
     }
 
-    /* Skills Badges */
     .skills-container {
       display: flex;
       gap: 8px;
@@ -192,9 +185,8 @@
       font-weight: 500;
     }
 
-    /* Contact text */
     .contact-text {
-      font-size: 0.95krem;
+      font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
       margin: 0;
@@ -225,9 +217,7 @@
   <div class="card">
     <!-- Header Section -->
     <div class="profile-header">
-      <div class="avatar-container">
-        <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
-      </div>
+      <img src="photo.jpg" alt="AVIJITH DEBNATH" class="avatar" />
       <div>
         <h1>AVIJITH DEBNATH</h1>
         <div class="subtitle">Creator & Software Developer</div>
@@ -265,9 +255,16 @@
     <section>
       <h2>Featured Projects</h2>
       <div class="projects-grid">
-        <a href="https://t.me/downflybot" target="_blank" class="project-card">
-          <div class="project-title">DownFly Bot <span>Telegram Bot ↗</span></div>
+        <!-- VDOWNLOADYBOT -->
+        <a href="https://t.me/VDOWNLOADYBOT" target="_blank" class="project-card">
+          <div class="project-title">VDOWNLOADYBOT <span>Telegram Bot ↗</span></div>
           <p class="project-desc">A fast and free all-in-one social media video downloader bot built for seamless media processing.</p>
+        </a>
+
+        <!-- Movies App (Direct Download) -->
+        <a href="https://www.appcreator24.com/app4123288-7vqe5y" download class="project-card">
+          <div class="project-title">Movies <span>Direct Download ⬇</span></div>
+          <p class="project-desc">A mobile streaming application built for seamless movie and media entertainment.</p>
         </a>
       </div>
     </section>
@@ -280,7 +277,7 @@
         <div class="skill-badge">Telegram Bot API</div>
         <div class="skill-badge">HTML5 / CSS3</div>
         <div class="skill-badge">Git & GitHub</div>
-        <div class="skill-badge">Web Development</div>
+        <div class="skill-badge">App Development</div>
       </div>
     </section>
 
