@@ -431,6 +431,170 @@
       font-weight: 500;
     }
 
+    /* Tic-Tac-Toe */
+    .ttt-status {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .ttt-status span {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .ttt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+
+    .ttt-cell {
+      aspect-ratio: 1 / 1;
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .ttt-cell:hover:not(.filled) {
+      border-color: var(--accent-color);
+      background-color: #1f1f1f;
+    }
+
+    .ttt-cell.x { color: #60a5fa; }
+    .ttt-cell.o { color: #f87171; }
+    .ttt-cell.win { background-color: #14532d; border-color: #22c55e; }
+
+    .ttt-reset-btn {
+      display: block;
+      margin: 14px auto 0;
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .ttt-reset-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+    }
+
+    /* Memory Matching Game */
+    .memory-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .memory-stats span {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      perspective: 600px;
+      cursor: pointer;
+    }
+
+    .memory-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .memory-card.flipped .memory-card-inner,
+    .memory-card.matched .memory-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .memory-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      font-size: 1.4rem;
+    }
+
+    .memory-face-back {
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .memory-face-front {
+      background-color: #1e2c40;
+      border: 1px solid var(--accent-color);
+      transform: rotateY(180deg);
+    }
+
+    .memory-card.matched .memory-face-front {
+      background-color: #14532d;
+      border-color: #22c55e;
+    }
+
+    .memory-win {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: #4ade80;
+      font-weight: 600;
+      display: none;
+    }
+
+    .memory-win.show {
+      display: block;
+    }
+
+    .memory-reset-btn {
+      display: block;
+      margin: 14px auto 0;
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .memory-reset-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+    }
+
     .contact-text {
       font-size: 0.95rem;
       color: var(--text-muted);
@@ -603,6 +767,26 @@
       </div>
     </section>
 
+    <!-- Tic-Tac-Toe -->
+    <section>
+      <h2 class="section-header">⭕ Tic-Tac-Toe</h2>
+      <div class="ttt-status" id="tttStatus">Your turn — you're <span>X</span></div>
+      <div class="ttt-grid" id="tttGrid"></div>
+      <button class="ttt-reset-btn" id="tttReset">Restart</button>
+    </section>
+
+    <!-- Memory Matching Game -->
+    <section>
+      <h2 class="section-header">🧠 Memory Match</h2>
+      <div class="memory-stats">
+        <div>Moves: <span id="memMoves">0</span></div>
+        <div>Matches: <span id="memMatches">0</span>/8</div>
+      </div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <div class="memory-win" id="memoryWin">🎉 You matched them all!</div>
+      <button class="memory-reset-btn" id="memoryReset">Restart</button>
+    </section>
+
     <!-- Personal Info -->
     <section>
       <h2 class="section-header">Personal Info</h2>
@@ -764,6 +948,194 @@
         }
       });
     });
+
+    // --- Tic-Tac-Toe (vs computer) ---
+    const tttGrid = document.getElementById('tttGrid');
+    const tttStatus = document.getElementById('tttStatus');
+    const tttReset = document.getElementById('tttReset');
+    const WIN_LINES = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+    let tttBoard = Array(9).fill(null);
+    let tttOver = false;
+
+    function buildTTT() {
+      tttGrid.innerHTML = '';
+      tttBoard = Array(9).fill(null);
+      tttOver = false;
+      tttStatus.innerHTML = "Your turn — you're <span>X</span>";
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'ttt-cell';
+        cell.dataset.i = i;
+        cell.addEventListener('click', () => tttPlayerMove(i));
+        tttGrid.appendChild(cell);
+      }
+    }
+
+    function tttRenderCell(i) {
+      const cell = tttGrid.children[i];
+      cell.textContent = tttBoard[i] || '';
+      cell.classList.remove('x', 'o');
+      if (tttBoard[i] === 'X') cell.classList.add('x', 'filled');
+      if (tttBoard[i] === 'O') cell.classList.add('o', 'filled');
+    }
+
+    function tttCheckWinner(board) {
+      for (const line of WIN_LINES) {
+        const [a,b,c] = line;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return { winner: board[a], line };
+        }
+      }
+      if (board.every(c => c)) return { winner: 'draw' };
+      return null;
+    }
+
+    function tttPlayerMove(i) {
+      if (tttOver || tttBoard[i]) return;
+      tttBoard[i] = 'X';
+      tttRenderCell(i);
+
+      const result = tttCheckWinner(tttBoard);
+      if (result) { tttEndGame(result); return; }
+
+      tttStatus.innerHTML = "Computer's turn...";
+      setTimeout(tttComputerMove, 450);
+    }
+
+    function tttComputerMove() {
+      if (tttOver) return;
+      const empty = tttBoard.map((v, i) => v ? null : i).filter(v => v !== null);
+
+      // Try to win
+      let move = tttFindBestMove('O') ?? tttFindBestMove('X') ?? (empty.includes(4) ? 4 : empty[Math.floor(Math.random() * empty.length)]);
+
+      tttBoard[move] = 'O';
+      tttRenderCell(move);
+
+      const result = tttCheckWinner(tttBoard);
+      if (result) { tttEndGame(result); return; }
+
+      tttStatus.innerHTML = "Your turn — you're <span>X</span>";
+    }
+
+    function tttFindBestMove(symbol) {
+      for (const line of WIN_LINES) {
+        const vals = line.map(i => tttBoard[i]);
+        const symCount = vals.filter(v => v === symbol).length;
+        const emptyCount = vals.filter(v => !v).length;
+        if (symCount === 2 && emptyCount === 1) {
+          return line[vals.findIndex(v => !v)];
+        }
+      }
+      return null;
+    }
+
+    function tttEndGame(result) {
+      tttOver = true;
+      if (result.winner === 'draw') {
+        tttStatus.textContent = "It's a draw! 🤝";
+      } else {
+        if (result.line) {
+          result.line.forEach(i => tttGrid.children[i].classList.add('win'));
+        }
+        tttStatus.textContent = result.winner === 'X' ? 'You win! 🎉' : 'Computer wins! 🤖';
+      }
+    }
+
+    tttReset.addEventListener('click', buildTTT);
+    buildTTT();
+
+    // --- Memory Matching Game ---
+    const memoryEmojis = ['🐍', '💻', '🌐', '🔧', '📱', '🤖', '🚀', '🎓'];
+    const memoryGrid = document.getElementById('memoryGrid');
+    const memMovesEl = document.getElementById('memMoves');
+    const memMatchesEl = document.getElementById('memMatches');
+    const memoryWinEl = document.getElementById('memoryWin');
+    const memoryResetBtn = document.getElementById('memoryReset');
+
+    let memCards = [];
+    let flippedCards = [];
+    let matchedCount = 0;
+    let moveCount = 0;
+    let lockBoard = false;
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function buildMemoryGame() {
+      memoryGrid.innerHTML = '';
+      matchedCount = 0;
+      moveCount = 0;
+      flippedCards = [];
+      lockBoard = false;
+      memMovesEl.textContent = '0';
+      memMatchesEl.textContent = '0';
+      memoryWinEl.classList.remove('show');
+
+      const deck = shuffle([...memoryEmojis, ...memoryEmojis]);
+      memCards = deck.map((emoji, idx) => ({ emoji, idx, matched: false }));
+
+      memCards.forEach((cardData) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.idx = cardData.idx;
+        card.innerHTML = `
+          <div class="memory-card-inner">
+            <div class="memory-face memory-face-back">?</div>
+            <div class="memory-face memory-face-front">${cardData.emoji}</div>
+          </div>
+        `;
+        card.addEventListener('click', () => onMemoryCardClick(card, cardData));
+        memoryGrid.appendChild(card);
+      });
+    }
+
+    function onMemoryCardClick(card, cardData) {
+      if (lockBoard || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+      card.classList.add('flipped');
+      flippedCards.push({ card, cardData });
+
+      if (flippedCards.length === 2) {
+        moveCount++;
+        memMovesEl.textContent = moveCount;
+        lockBoard = true;
+        const [first, second] = flippedCards;
+
+        if (first.cardData.emoji === second.cardData.emoji) {
+          first.card.classList.add('matched');
+          second.card.classList.add('matched');
+          matchedCount++;
+          memMatchesEl.textContent = matchedCount;
+          flippedCards = [];
+          lockBoard = false;
+
+          if (matchedCount === memoryEmojis.length) {
+            memoryWinEl.classList.add('show');
+          }
+        } else {
+          setTimeout(() => {
+            first.card.classList.remove('flipped');
+            second.card.classList.remove('flipped');
+            flippedCards = [];
+            lockBoard = false;
+          }, 800);
+        }
+      }
+    }
+
+    memoryResetBtn.addEventListener('click', buildMemoryGame);
+    buildMemoryGame();
   </script>
 
 </body>
