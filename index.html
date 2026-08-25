@@ -127,6 +127,17 @@
       .projects-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .games-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 32px;
+      }
+
+      .games-row section {
+        margin-top: 0;
+      }
     }
 
     @media (min-width: 1400px) {
@@ -767,25 +778,28 @@
       </div>
     </section>
 
-    <!-- Tic-Tac-Toe -->
-    <section>
-      <h2 class="section-header">⭕ Tic-Tac-Toe</h2>
-      <div class="ttt-status" id="tttStatus">Your turn — you're <span>X</span></div>
-      <div class="ttt-grid" id="tttGrid"></div>
-      <button class="ttt-reset-btn" id="tttReset">Restart</button>
-    </section>
+    <!-- Games -->
+    <div class="games-row">
+      <!-- Tic-Tac-Toe -->
+      <section>
+        <h2 class="section-header">⭕ Tic-Tac-Toe</h2>
+        <div class="ttt-status" id="tttStatus">Your turn — you're <span>X</span></div>
+        <div class="ttt-grid" id="tttGrid"></div>
+        <button class="ttt-reset-btn" id="tttReset">Restart</button>
+      </section>
 
-    <!-- Memory Matching Game -->
-    <section>
-      <h2 class="section-header">🧠 Memory Match</h2>
-      <div class="memory-stats">
-        <div>Moves: <span id="memMoves">0</span></div>
-        <div>Matches: <span id="memMatches">0</span>/8</div>
-      </div>
-      <div class="memory-grid" id="memoryGrid"></div>
-      <div class="memory-win" id="memoryWin">🎉 You matched them all!</div>
-      <button class="memory-reset-btn" id="memoryReset">Restart</button>
-    </section>
+      <!-- Memory Matching Game -->
+      <section>
+        <h2 class="section-header">🧠 Memory Match</h2>
+        <div class="memory-stats">
+          <div>Moves: <span id="memMoves">0</span></div>
+          <div>Matches: <span id="memMatches">0</span>/8</div>
+        </div>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <div class="memory-win" id="memoryWin">🎉 You matched them all!</div>
+        <button class="memory-reset-btn" id="memoryReset">Restart</button>
+      </section>
+    </div>
 
     <!-- Personal Info -->
     <section>
