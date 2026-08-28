@@ -420,6 +420,80 @@
       100% { transform: rotateY(360deg); }
     }
 
+    /* Interest Category Cards (clickable/expandable) */
+    .interest-card {
+      background-color: #121212;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+
+    .interest-card:hover {
+      border-color: var(--accent-color);
+      background-color: #161616;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(96, 165, 250, 0.12);
+    }
+
+    .interest-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      user-select: none;
+    }
+
+    .interest-header h3 {
+      flex: 1;
+      font-size: 0.95rem;
+      color: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .interest-arrow {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .interest-card[data-open="true"] .interest-arrow {
+      transform: rotate(180deg);
+      color: var(--accent-color);
+    }
+
+    .interest-card:hover .card-icon {
+      animation: iconFlip 0.6s ease;
+    }
+
+    .interest-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .interest-card[data-open="true"] .interest-list {
+      max-height: 200px;
+    }
+
+    .interest-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 18px 16px;
+    }
+
+    .interest-tag {
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
     .card-content h3 {
       font-size: 0.95rem;
       color: #f3f4f6;
@@ -441,6 +515,62 @@
     .job-title {
       color: #e5e7eb;
       font-weight: 500;
+    }
+
+    /* Work Experience Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-color), var(--border-color));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 22px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -26px;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      border: 2px solid var(--card-bg);
+      box-shadow: 0 0 0 2px var(--accent-color);
+    }
+
+    .timeline-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f3f4f6;
+    }
+
+    .timeline-org {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-top: 4px;
     }
 
     .skills-container {
@@ -756,18 +886,28 @@
       </div>
     </section>
 
+    <!-- Work Experience -->
+    <section>
+      <h2 class="section-header">💼 Work Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Customer Care Executive</div>
+          <div class="timeline-org">ISP & Networking Company</div>
+          <div class="timeline-date">Present</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Teacher</div>
+          <div class="timeline-org">Kindergarten School</div>
+          <div class="timeline-date">Present</div>
+        </div>
+      </div>
+    </section>
+
     <!-- Background & Interests -->
     <section>
       <h2 class="section-header">Background & Interests</h2>
-
-      <div class="info-card">
-        <div class="card-icon">💼</div>
-        <div class="card-content">
-          <h3>Current Professional Roles</h3>
-          <p><span class="job-title">Customer Care Executive</span> — Wi-Fi Internet Office</p>
-          <p><span class="job-title">Teacher</span> — Kindergarten School</p>
-        </div>
-      </div>
 
       <div class="info-card">
         <div class="card-icon">🎓</div>
@@ -777,11 +917,51 @@
         </div>
       </div>
 
-      <div class="info-card">
-        <div class="card-icon">🚀</div>
-        <div class="card-content">
-          <h3>Interests & Hobbies</h3>
-          <p>Exploring new technologies, experimenting with apps and projects, traveling, and experiencing nature.</p>
+      <div class="interest-card" data-open="false">
+        <div class="interest-header">
+          <div class="card-icon">✈️</div>
+          <h3>Traveling</h3>
+          <span class="interest-arrow">▾</span>
+        </div>
+        <div class="interest-list">
+          <div class="interest-tags">
+            <span class="interest-tag">Cox's Bazar</span>
+            <span class="interest-tag">Pachgaon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="interest-card" data-open="false">
+        <div class="interest-header">
+          <div class="card-icon">🎮</div>
+          <h3>Games</h3>
+          <span class="interest-arrow">▾</span>
+        </div>
+        <div class="interest-list">
+          <div class="interest-tags">
+            <span class="interest-tag">PUBG</span>
+            <span class="interest-tag">UNO</span>
+            <span class="interest-tag">eFootball</span>
+            <span class="interest-tag">DLS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="interest-card" data-open="false">
+        <div class="interest-header">
+          <div class="card-icon">🎵</div>
+          <h3>Music</h3>
+          <span class="interest-arrow">▾</span>
+        </div>
+        <div class="interest-list">
+          <div class="interest-tags">
+            <span class="interest-tag">KK</span>
+            <span class="interest-tag">Arijit Singh</span>
+            <span class="interest-tag">Zubeen Garg</span>
+            <span class="interest-tag">Pritam</span>
+            <span class="interest-tag">Rabindra Sangeet</span>
+            <span class="interest-tag">Nazrul Geeti</span>
+          </div>
         </div>
       </div>
     </section>
@@ -799,10 +979,11 @@
     </section>
 
     <!-- Games -->
+    <h2 class="section-header" style="margin-top: 32px;">🎮 Just for Fun</h2>
     <div class="games-row">
       <!-- Tic-Tac-Toe -->
       <section>
-        <h2 class="section-header">⭕ Tic-Tac-Toe</h2>
+        <h3 style="font-size: 0.95rem; color: var(--heading-gray); font-weight: 600; margin-bottom: 12px;">⭕ Tic-Tac-Toe</h3>
         <div class="ttt-status" id="tttStatus">Your turn — you're <span>X</span></div>
         <div class="ttt-grid" id="tttGrid"></div>
         <button class="ttt-reset-btn" id="tttReset">Restart</button>
@@ -810,7 +991,7 @@
 
       <!-- Memory Matching Game -->
       <section>
-        <h2 class="section-header">🧠 Memory Match</h2>
+        <h3 style="font-size: 0.95rem; color: var(--heading-gray); font-weight: 600; margin-bottom: 12px;">🧠 Memory Match</h3>
         <div class="memory-stats">
           <div>Moves: <span id="memMoves">0</span></div>
           <div>Matches: <span id="memMatches">0</span>/8</div>
@@ -845,7 +1026,7 @@
         <div class="card-icon">👀</div>
         <div class="card-content">
           <h3>Visitors</h3>
-          <img src="https://hits.sh/aavijith.github.io.svg?style=flat-square&label=visitors&color=60a5fa&labelColor=1a1a1a" alt="visitor count" style="height: 20px; margin-top: 2px;" />
+          <div id="visitorBadge" style="height: 20px; margin-top: 2px;"></div>
         </div>
       </div>
     </section>
@@ -1178,6 +1359,36 @@
 
     memoryResetBtn.addEventListener('click', buildMemoryGame);
     buildMemoryGame();
+
+    // --- Interest Category Cards (click to expand) ---
+    document.querySelectorAll('.interest-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const isOpen = card.dataset.open === 'true';
+        card.dataset.open = isOpen ? 'false' : 'true';
+      });
+    });
+
+    // --- Visitor Counter (counts once per browser session, not on refresh) ---
+    (async function loadVisitorBadge() {
+      const badgeEl = document.getElementById('visitorBadge');
+      const badgeUrl = 'https://hits.sh/aavijith.github.io.svg?style=flat-square&label=visitors&color=60a5fa&labelColor=1a1a1a';
+      const cached = sessionStorage.getItem('visitorBadgeSvg');
+
+      if (cached) {
+        // Already counted this session — reuse cached badge, no new hit
+        badgeEl.innerHTML = cached;
+        return;
+      }
+
+      try {
+        const res = await fetch(badgeUrl);
+        const svgText = await res.text();
+        sessionStorage.setItem('visitorBadgeSvg', svgText);
+        badgeEl.innerHTML = svgText;
+      } catch (err) {
+        badgeEl.textContent = 'Unavailable';
+      }
+    })();
 
     // --- Cursor Trail ---
     let lastTrailTime = 0;
