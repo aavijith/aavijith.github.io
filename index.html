@@ -475,7 +475,7 @@
     }
 
     .interest-card[data-open="true"] .interest-list {
-      max-height: 200px;
+      max-height: 180px;
     }
 
     .interest-tags {
@@ -486,12 +486,99 @@
     }
 
     .interest-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       background-color: var(--card-inner-bg);
       border: 1px solid var(--border-color);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Interest cards shown side-by-side */
+    .interests-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      align-items: start;
+    }
+
+    .interests-row .interest-card {
+      margin-bottom: 0;
+    }
+
+    .interests-row .interest-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 5px;
+      padding: 12px 4px;
+    }
+
+    .interests-row .interest-header h3 {
+      font-size: 0.72rem;
+      flex: none;
+      line-height: 1.2;
+    }
+
+    .interests-row .card-icon {
+      font-size: 1.1rem;
+      padding-top: 0;
+    }
+
+    .interests-row .interest-arrow {
+      font-size: 0.6rem;
+    }
+
+    .interests-row .interest-tags {
+      padding: 0 6px 12px;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .interests-row .interest-tag {
+      font-size: 0.68rem;
+      padding: 4px 8px;
+      gap: 4px;
+    }
+
+    /* When a card is open, it expands to full row width instead of growing narrow/tall */
+    .interests-row .interest-card[data-open="true"] {
+      grid-column: 1 / -1;
+    }
+
+    .interests-row .interest-card[data-open="true"] .interest-header {
+      flex-direction: row;
+      text-align: left;
+      gap: 14px;
+      padding: 14px 18px;
+    }
+
+    .interests-row .interest-card[data-open="true"] .interest-header h3 {
+      font-size: 0.95rem;
+      flex: 1;
+    }
+
+    .interests-row .interest-card[data-open="true"] .card-icon {
+      font-size: 1.2rem;
+    }
+
+    .interests-row .interest-card[data-open="true"] .interest-arrow {
+      font-size: 0.8rem;
+    }
+
+    .interests-row .interest-card[data-open="true"] .interest-tags {
+      padding: 0 18px 16px;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+
+    .interests-row .interest-card[data-open="true"] .interest-tag {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      gap: 6px;
     }
 
     .card-content h3 {
@@ -917,50 +1004,52 @@
         </div>
       </div>
 
-      <div class="interest-card" data-open="false">
-        <div class="interest-header">
-          <div class="card-icon">✈️</div>
-          <h3>Traveling</h3>
-          <span class="interest-arrow">▾</span>
-        </div>
-        <div class="interest-list">
-          <div class="interest-tags">
-            <span class="interest-tag">Cox's Bazar</span>
-            <span class="interest-tag">Pachgaon</span>
+      <div class="interests-row">
+        <div class="interest-card" data-open="false">
+          <div class="interest-header">
+            <div class="card-icon">✈️</div>
+            <h3>Traveling</h3>
+            <span class="interest-arrow">▾</span>
+          </div>
+          <div class="interest-list">
+            <div class="interest-tags">
+              <span class="interest-tag">🏖️ Cox's Bazar</span>
+              <span class="interest-tag">🏞️ Pachgaon</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="interest-card" data-open="false">
-        <div class="interest-header">
-          <div class="card-icon">🎮</div>
-          <h3>Games</h3>
-          <span class="interest-arrow">▾</span>
-        </div>
-        <div class="interest-list">
-          <div class="interest-tags">
-            <span class="interest-tag">PUBG</span>
-            <span class="interest-tag">UNO</span>
-            <span class="interest-tag">eFootball</span>
-            <span class="interest-tag">DLS</span>
+        <div class="interest-card" data-open="false">
+          <div class="interest-header">
+            <div class="card-icon">🎮</div>
+            <h3>Games</h3>
+            <span class="interest-arrow">▾</span>
+          </div>
+          <div class="interest-list">
+            <div class="interest-tags">
+              <span class="interest-tag">🎯 PUBG</span>
+              <span class="interest-tag">🃏 UNO</span>
+              <span class="interest-tag">⚽ eFootball</span>
+              <span class="interest-tag">🏆 DLS</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="interest-card" data-open="false">
-        <div class="interest-header">
-          <div class="card-icon">🎵</div>
-          <h3>Music</h3>
-          <span class="interest-arrow">▾</span>
-        </div>
-        <div class="interest-list">
-          <div class="interest-tags">
-            <span class="interest-tag">KK</span>
-            <span class="interest-tag">Arijit Singh</span>
-            <span class="interest-tag">Zubeen Garg</span>
-            <span class="interest-tag">Pritam</span>
-            <span class="interest-tag">Rabindra Sangeet</span>
-            <span class="interest-tag">Nazrul Geeti</span>
+        <div class="interest-card" data-open="false">
+          <div class="interest-header">
+            <div class="card-icon">🎵</div>
+            <h3>Music</h3>
+            <span class="interest-arrow">▾</span>
+          </div>
+          <div class="interest-list">
+            <div class="interest-tags">
+              <span class="interest-tag">🎤 KK</span>
+              <span class="interest-tag">🎤 Arijit Singh</span>
+              <span class="interest-tag">🎤 Zubeen Garg</span>
+              <span class="interest-tag">🎼 Pritam</span>
+              <span class="interest-tag">🎻 Rabindra Sangeet</span>
+              <span class="interest-tag">🎶 Nazrul Geeti</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1368,26 +1457,29 @@
       });
     });
 
-    // --- Visitor Counter (counts once per browser session, not on refresh) ---
-    (async function loadVisitorBadge() {
+    // --- Visitor Counter (img badge, counts once per browser session) ---
+    (function loadVisitorBadge() {
       const badgeEl = document.getElementById('visitorBadge');
       const badgeUrl = 'https://hits.sh/aavijith.github.io.svg?style=flat-square&label=visitors&color=60a5fa&labelColor=1a1a1a';
-      const cached = sessionStorage.getItem('visitorBadgeSvg');
+      const alreadyCounted = sessionStorage.getItem('visitorCounted');
 
-      if (cached) {
-        // Already counted this session — reuse cached badge, no new hit
-        badgeEl.innerHTML = cached;
+      if (alreadyCounted) {
+        // Don't re-request the badge this session (would count another hit) —
+        // show a static thank-you note instead.
+        badgeEl.innerHTML = '<span style="font-size:0.8rem;color:var(--text-muted);">👋 Thanks for visiting!</span>';
         return;
       }
 
-      try {
-        const res = await fetch(badgeUrl);
-        const svgText = await res.text();
-        sessionStorage.setItem('visitorBadgeSvg', svgText);
-        badgeEl.innerHTML = svgText;
-      } catch (err) {
-        badgeEl.textContent = 'Unavailable';
-      }
+      const img = document.createElement('img');
+      img.src = badgeUrl;
+      img.alt = 'visitor count';
+      img.style.height = '20px';
+      img.onerror = () => {
+        badgeEl.innerHTML = '<span style="font-size:0.8rem;color:var(--text-muted);">Unavailable</span>';
+      };
+      badgeEl.innerHTML = '';
+      badgeEl.appendChild(img);
+      sessionStorage.setItem('visitorCounted', 'true');
     })();
 
     // --- Cursor Trail ---
