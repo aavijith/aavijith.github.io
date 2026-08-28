@@ -501,65 +501,69 @@
 
     /* Interest cards shown side-by-side */
     .interests-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      align-items: start;
     }
 
     .interests-row .interest-card {
+      flex: 0 0 calc(33.333% - 6px);
       margin-bottom: 0;
+      transition: flex-basis 0.4s cubic-bezier(0.4, 0.1, 0.2, 1), border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+
+    .interests-row .interest-card[data-open="true"] {
+      flex-basis: 100%;
     }
 
     .interests-row .interest-header {
-      flex-direction: column;
-      text-align: center;
-      gap: 5px;
-      padding: 12px 4px;
+      flex-direction: row;
+      text-align: left;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 8px;
+      transition: padding 0.3s ease, gap 0.3s ease;
     }
 
     .interests-row .interest-header h3 {
-      font-size: 0.72rem;
-      flex: none;
+      font-size: 0.7rem;
+      flex: 1;
       line-height: 1.2;
+      transition: font-size 0.3s ease;
     }
 
     .interests-row .card-icon {
-      font-size: 1.1rem;
+      font-size: 1rem;
       padding-top: 0;
+      transition: font-size 0.3s ease;
     }
 
     .interests-row .interest-arrow {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
+      transition: font-size 0.3s ease, transform 0.3s ease;
     }
 
     .interests-row .interest-tags {
-      padding: 0 6px 12px;
+      padding: 0 10px 12px;
       gap: 5px;
-      justify-content: center;
+      justify-content: flex-start;
+      transition: padding 0.3s ease;
     }
 
     .interests-row .interest-tag {
       font-size: 0.68rem;
       padding: 4px 8px;
       gap: 4px;
-    }
-
-    /* When a card is open, it expands to full row width instead of growing narrow/tall */
-    .interests-row .interest-card[data-open="true"] {
-      grid-column: 1 / -1;
+      transition: font-size 0.3s ease, padding 0.3s ease;
     }
 
     .interests-row .interest-card[data-open="true"] .interest-header {
-      flex-direction: row;
-      text-align: left;
-      gap: 14px;
       padding: 14px 18px;
+      gap: 14px;
     }
 
     .interests-row .interest-card[data-open="true"] .interest-header h3 {
       font-size: 0.95rem;
-      flex: 1;
     }
 
     .interests-row .interest-card[data-open="true"] .card-icon {
@@ -573,7 +577,6 @@
     .interests-row .interest-card[data-open="true"] .interest-tags {
       padding: 0 18px 16px;
       gap: 8px;
-      justify-content: flex-start;
     }
 
     .interests-row .interest-card[data-open="true"] .interest-tag {
