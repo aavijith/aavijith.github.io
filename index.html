@@ -480,7 +480,7 @@
     }
 
     .interest-card[data-open="true"] .interest-list {
-      max-height: 180px;
+      max-height: 420px;
     }
 
     .interest-tags {
@@ -851,6 +851,91 @@
       color: var(--text-main);
     }
 
+    /* Interactive Travel Map */
+    .travel-map-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 4px 18px 18px;
+    }
+
+    .travel-map {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+    }
+
+    .travel-map-shape {
+      fill: var(--card-inner-bg);
+      stroke: var(--border-color);
+      stroke-width: 2;
+      transition: fill 0.3s ease;
+    }
+
+    .travel-marker {
+      cursor: pointer;
+    }
+
+    .marker-dot {
+      fill: var(--accent-color);
+      transition: fill 0.25s ease, r 0.25s ease;
+    }
+
+    .marker-pulse {
+      fill: var(--accent-color);
+      opacity: 0.35;
+      animation: markerPulse 2s ease-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+
+    .travel-marker[data-active="true"] .marker-dot {
+      fill: #4ade80;
+      r: 6.5;
+    }
+
+    .travel-marker[data-active="true"] .marker-pulse {
+      fill: #4ade80;
+    }
+
+    @keyframes markerPulse {
+      0% { transform: scale(1); opacity: 0.45; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+
+    .travel-info {
+      width: 100%;
+      background-color: #121212;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 18px;
+      text-align: center;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s ease;
+    }
+
+    .travel-info-placeholder {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .travel-info-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f3f4f6;
+      margin-bottom: 4px;
+    }
+
+    .travel-info-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     /* Vibe & Mood Matcher */
     .weather-search {
       display: flex;
@@ -1156,10 +1241,29 @@
             <span class="interest-arrow">▾</span>
           </div>
           <div class="interest-list">
-            <div class="interest-tags">
-              <span class="interest-tag">🏖️ Cox's Bazar</span>
-              <span class="interest-tag">🏞️ Pachgaon</span>
-              <span class="interest-tag">🌊 Tanguar Haor</span>
+            <div class="travel-map-wrap">
+              <svg class="travel-map" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                <path class="travel-map-shape" d="M280,269.6 L278.8,310.2 L259,301.6 L262.7,347.2 L246.6,317.7 L243.3,288.8 L232.5,261.5 L208.8,228.6 L156.6,226.3 L161.8,249.7 L144,281.2 L119.9,269.7 L111.6,280.1 L95.6,273.8 L73.7,268.7 L64.9,222.1 L45.2,179.5 L54.9,145.4 L20,130.2 L32.6,109.5 L68,88.4 L27.1,58.4 L47.1,20 L92,44.5 L119,47.3 L124,86.7 L177.9,94.5 L230.5,93.6 L263.1,103.3 L237,151.2 L211.7,154.5 L194.2,186.7 L225.2,216.1 L234.5,179.9 L250.1,179.7 Z" />
+
+                <g class="travel-marker" data-place="pachgaon">
+                  <circle class="marker-pulse" cx="171" cy="99" r="6" />
+                  <circle class="marker-dot" cx="171" cy="99" r="5" />
+                </g>
+
+                <g class="travel-marker" data-place="tanguar">
+                  <circle class="marker-pulse" cx="192" cy="91" r="6" />
+                  <circle class="marker-dot" cx="192" cy="91" r="5" />
+                </g>
+
+                <g class="travel-marker" data-place="coxsbazar">
+                  <circle class="marker-pulse" cx="242" cy="304" r="6" />
+                  <circle class="marker-dot" cx="242" cy="304" r="5" />
+                </g>
+              </svg>
+
+              <div class="travel-info" id="travelInfo">
+                <div class="travel-info-placeholder">📍 একটা marker এ ক্লিক করো জায়গার নাম দেখতে</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1611,6 +1715,45 @@
         card.dataset.open = isOpen ? 'false' : 'true';
       });
     });
+    // --- Interactive Bangladesh Travel Map ---
+    (function initTravelMap() {
+      const PLACE_INFO = {
+        pachgaon: {
+          title: '🏞️ Pachgaon',
+          desc: 'নেত্রকোণার কলমাকান্দা উপজেলার পাহাড়ি গ্রাম — চন্দ্রডিঙ্গা পাহাড়, ছোট ঝর্ণা-ঝিরিপথ আর সবুজ প্রকৃতির জন্য বিখ্যাত।',
+        },
+        tanguar: {
+          title: '🌊 Tanguar Haor',
+          desc: 'সুনামগঞ্জের বিশাল জলাভূমি — পানি আর আকাশ মিশে যাওয়া এক অপরূপ দৃশ্য।',
+        },
+        coxsbazar: {
+          title: "🏖️ Cox's Bazar",
+          desc: "বিশ্বের দীর্ঘতম প্রাকৃতিক সমুদ্র সৈকত — ঢেউয়ের শব্দ আর সূর্যাস্তের জন্য বিখ্যাত।",
+        },
+      };
+
+      const markers = document.querySelectorAll('.travel-marker');
+      const infoEl = document.getElementById('travelInfo');
+
+      markers.forEach((marker) => {
+        marker.addEventListener('click', () => {
+          const place = marker.dataset.place;
+          const info = PLACE_INFO[place];
+          if (!info) return;
+
+          markers.forEach((m) => m.dataset.active = 'false');
+          marker.dataset.active = 'true';
+
+          infoEl.innerHTML = `
+            <div>
+              <div class="travel-info-title">${info.title}</div>
+              <div class="travel-info-desc">${info.desc}</div>
+            </div>
+          `;
+        });
+      });
+    })();
+
     // --- Vibe & Mood Matcher (live weather + Bengali mood text) ---
     (function initWeatherMoodMatcher() {
       const cityInput = document.getElementById('weatherCityInput');
