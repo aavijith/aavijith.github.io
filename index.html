@@ -65,9 +65,13 @@
       align-items: center;
       min-height: 100vh;
       padding: 30px 16px;
+      position: relative;
+      overflow-x: hidden;
     }
 
     .card {
+      position: relative;
+      z-index: 1;
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 24px;
@@ -1121,14 +1125,6 @@
           <p>Bengali, English, Hindi</p>
         </div>
       </div>
-
-      <div class="info-card">
-        <div class="card-icon">👀</div>
-        <div class="card-content">
-          <h3>Visitors</h3>
-          <div id="visitorBadge" style="height: 20px; margin-top: 2px;"></div>
-        </div>
-      </div>
     </section>
 
     <!-- Quote -->
@@ -1283,11 +1279,13 @@
     ];
     let tttBoard = Array(9).fill(null);
     let tttOver = false;
+    let tttPlayerTurn = true;
 
     function buildTTT() {
       tttGrid.innerHTML = '';
       tttBoard = Array(9).fill(null);
       tttOver = false;
+      tttPlayerTurn = true;
       tttStatus.innerHTML = "Your turn — you're <span>X</span>";
       for (let i = 0; i < 9; i++) {
         const cell = document.createElement('div');
@@ -1318,9 +1316,10 @@
     }
 
     function tttPlayerMove(i) {
-      if (tttOver || tttBoard[i]) return;
+      if (tttOver || !tttPlayerTurn || tttBoard[i]) return;
       tttBoard[i] = 'X';
       tttRenderCell(i);
+      tttPlayerTurn = false;
 
       const result = tttCheckWinner(tttBoard);
       if (result) { tttEndGame(result); return; }
@@ -1342,6 +1341,7 @@
       const result = tttCheckWinner(tttBoard);
       if (result) { tttEndGame(result); return; }
 
+      tttPlayerTurn = true;
       tttStatus.innerHTML = "Your turn — you're <span>X</span>";
     }
 
@@ -1467,32 +1467,6 @@
         card.dataset.open = isOpen ? 'false' : 'true';
       });
     });
-
-    // --- Visitor Counter (img badge, counts once per browser session) ---
-    (function loadVisitorBadge() {
-      const badgeEl = document.getElementById('visitorBadge');
-      const badgeUrl = 'https://hits.sh/aavijith.github.io.svg?style=flat-square&label=visitors&color=60a5fa&labelColor=1a1a1a';
-      const alreadyCounted = sessionStorage.getItem('visitorCounted');
-
-      if (alreadyCounted) {
-        // Don't re-request the badge this session (would count another hit) —
-        // show a static thank-you note instead.
-        badgeEl.innerHTML = '<span style="font-size:0.8rem;color:var(--text-muted);">👋 Thanks for visiting!</span>';
-        return;
-      }
-
-      const img = document.createElement('img');
-      img.src = badgeUrl;
-      img.alt = 'visitor count';
-      img.style.height = '20px';
-      img.onerror = () => {
-        badgeEl.innerHTML = '<span style="font-size:0.8rem;color:var(--text-muted);">Unavailable</span>';
-      };
-      badgeEl.innerHTML = '';
-      badgeEl.appendChild(img);
-      sessionStorage.setItem('visitorCounted', 'true');
-    })();
-
     // --- Cursor Trail ---
     let lastTrailTime = 0;
     document.addEventListener('mousemove', (e) => {
