@@ -1734,9 +1734,14 @@
 
       const markers = document.querySelectorAll('.travel-marker');
       const infoEl = document.getElementById('travelInfo');
+      const mapWrap = document.querySelector('.travel-map-wrap');
+      if (mapWrap) {
+        mapWrap.addEventListener('click', (e) => e.stopPropagation());
+      }
 
       markers.forEach((marker) => {
-        marker.addEventListener('click', () => {
+        marker.addEventListener('click', (e) => {
+          e.stopPropagation();
           const place = marker.dataset.place;
           const info = PLACE_INFO[place];
           if (!info) return;
