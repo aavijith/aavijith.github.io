@@ -851,6 +851,125 @@
       color: var(--text-main);
     }
 
+    /* Vibe & Mood Matcher */
+    .weather-search {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    #weatherCityInput {
+      flex: 1;
+      min-width: 140px;
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    #weatherCityInput:focus {
+      border-color: var(--accent-color);
+    }
+
+    #weatherCityInput::placeholder {
+      color: var(--text-muted);
+    }
+
+    .weather-btn {
+      background-color: var(--accent-color);
+      border: none;
+      color: #0a0a0a;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .weather-btn:hover {
+      opacity: 0.85;
+    }
+
+    .weather-btn-secondary {
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .weather-btn-secondary:hover {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+      opacity: 1;
+    }
+
+    .weather-loading {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 12px 0;
+    }
+
+    .weather-error {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #f87171;
+      padding: 12px 0;
+    }
+
+    .weather-result {
+      background-color: #121212;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      animation: fadeInUp 0.4s ease both;
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .weather-emoji {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .weather-city {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f3f4f6;
+    }
+
+    .weather-temp {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    .weather-details {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .weather-mood {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #93c5fd;
+      line-height: 1.6;
+    }
+
     .contact-text {
       font-size: 0.95rem;
       color: var(--text-muted);
@@ -1105,6 +1224,31 @@
         <button class="memory-reset-btn" id="memoryReset">Restart</button>
       </section>
     </div>
+
+    <!-- Vibe & Mood Matcher -->
+    <section>
+      <h2 class="section-header">🌦️ Vibe & Mood Matcher</h2>
+      <div class="weather-search">
+        <input type="text" id="weatherCityInput" placeholder="শহরের নাম লিখো (e.g. Dhaka)" />
+        <button id="weatherSearchBtn" class="weather-btn">খুঁজো</button>
+        <button id="weatherLocationBtn" class="weather-btn weather-btn-secondary">📍 আমার লোকেশন</button>
+      </div>
+
+      <div id="weatherLoading" class="weather-loading" style="display:none;">আবহাওয়া আনা হচ্ছে...</div>
+      <div id="weatherError" class="weather-error" style="display:none;"></div>
+
+      <div id="weatherResult" class="weather-result" style="display:none;">
+        <div class="weather-main">
+          <span id="weatherEmoji" class="weather-emoji">☀️</span>
+          <div>
+            <div id="weatherCityName" class="weather-city"></div>
+            <div id="weatherTemp" class="weather-temp"></div>
+          </div>
+        </div>
+        <div class="weather-details" id="weatherDetails"></div>
+        <div class="weather-mood" id="weatherMood"></div>
+      </div>
+    </section>
 
     <!-- Personal Info -->
     <section>
@@ -1467,6 +1611,197 @@
         card.dataset.open = isOpen ? 'false' : 'true';
       });
     });
+    // --- Vibe & Mood Matcher (live weather + Bengali mood text) ---
+    (function initWeatherMoodMatcher() {
+      const cityInput = document.getElementById('weatherCityInput');
+      const searchBtn = document.getElementById('weatherSearchBtn');
+      const locationBtn = document.getElementById('weatherLocationBtn');
+      const loadingEl = document.getElementById('weatherLoading');
+      const errorEl = document.getElementById('weatherError');
+      const resultEl = document.getElementById('weatherResult');
+      const emojiEl = document.getElementById('weatherEmoji');
+      const cityNameEl = document.getElementById('weatherCityName');
+      const tempEl = document.getElementById('weatherTemp');
+      const detailsEl = document.getElementById('weatherDetails');
+      const moodEl = document.getElementById('weatherMood');
+
+      // WMO weather code -> { emoji, label, category }
+      const WEATHER_CODES = {
+        0: { emoji: '☀️', label: 'পরিষ্কার আকাশ', category: 'clear' },
+        1: { emoji: '🌤️', label: 'মূলত পরিষ্কার', category: 'partlyCloudy' },
+        2: { emoji: '⛅', label: 'আংশিক মেঘলা', category: 'partlyCloudy' },
+        3: { emoji: '☁️', label: 'মেঘলা', category: 'partlyCloudy' },
+        45: { emoji: '🌫️', label: 'কুয়াশাচ্ছন্ন', category: 'fog' },
+        48: { emoji: '🌫️', label: 'ঘন কুয়াশা', category: 'fog' },
+        51: { emoji: '🌦️', label: 'হালকা গুঁড়ি বৃষ্টি', category: 'rain' },
+        53: { emoji: '🌦️', label: 'গুঁড়ি বৃষ্টি', category: 'rain' },
+        55: { emoji: '🌧️', label: 'ঘন গুঁড়ি বৃষ্টি', category: 'rain' },
+        61: { emoji: '🌧️', label: 'হালকা বৃষ্টি', category: 'rain' },
+        63: { emoji: '🌧️', label: 'বৃষ্টি', category: 'rain' },
+        65: { emoji: '⛈️', label: 'ভারী বৃষ্টি', category: 'rain' },
+        66: { emoji: '🌧️', label: 'তুষার-বৃষ্টি', category: 'rain' },
+        67: { emoji: '🌧️', label: 'ভারী তুষার-বৃষ্টি', category: 'rain' },
+        71: { emoji: '🌨️', label: 'হালকা তুষারপাত', category: 'snow' },
+        73: { emoji: '🌨️', label: 'তুষারপাত', category: 'snow' },
+        75: { emoji: '❄️', label: 'ভারী তুষারপাত', category: 'snow' },
+        80: { emoji: '🌦️', label: 'হালকা বৃষ্টির ঝাপটা', category: 'rain' },
+        81: { emoji: '🌧️', label: 'বৃষ্টির ঝাপটা', category: 'rain' },
+        82: { emoji: '⛈️', label: 'তীব্র বৃষ্টির ঝাপটা', category: 'rain' },
+        95: { emoji: '⛈️', label: 'বজ্রঝড়', category: 'thunderstorm' },
+        96: { emoji: '⛈️', label: 'বজ্রসহ শিলাবৃষ্টি', category: 'thunderstorm' },
+        99: { emoji: '⛈️', label: 'তীব্র বজ্রসহ শিলাবৃষ্টি', category: 'thunderstorm' },
+      };
+
+      const MOOD_LINES = {
+        clear: {
+          hot: [
+            'ঝলমলে রোদে আজকের দিনটা প্রাণবন্ত আর উজ্জ্বল',
+            'চড়া রোদ্দুরে একটা ঠান্ডা লেবুর শরবতের দিন',
+            'গরম রোদে হাঁটতে বেরোনোর মতো ঝলমলে একটা দিন',
+          ],
+          mild: [
+            'ঝকঝকে নীল আকাশে হালকা রোদ্দুরের আরামদায়ক একটা দিন',
+            'পরিষ্কার আকাশ, হালকা বাতাস — বাইরে ঘুরে বেড়ানোর মতো দিন',
+            'রোদ ঝলমলে আকাশে ছাদে বসে চা খাওয়ার মতো আবহাওয়া',
+          ],
+          cold: [
+            'ঠান্ডা রোদ্দুরে কম্বল গায়ে জড়িয়ে বসার মতো একটা দিন',
+            'শীতের ঝকঝকে রোদে গরম চায়ের কাপ হাতে বসার আবহাওয়া',
+            'টাটকা ঠান্ডা বাতাসে রোদ পোহানোর মতো সুন্দর দিন',
+          ],
+        },
+        partlyCloudy: [
+          'আকাশে হালকা মেঘের আনাগোনা, রোদ-ছায়ার লুকোচুরি খেলা',
+          'মেঘলা-রোদেলা মেশানো একটা শান্ত, আরামদায়ক দিন',
+          'আধা মেঘলা আকাশে জানালার পাশে বসে বই পড়ার মতো আবহাওয়া',
+        ],
+        fog: [
+          'কুয়াশা ঢাকা সকালে রহস্যময়, নিস্তব্ধ একটা আবহাওয়া',
+          'ধোঁয়াশা মাখা চারপাশ, গরম চায়ের কাপে জড়িয়ে থাকার দিন',
+          'কুয়াশার চাদরে মোড়া শান্ত, স্বপ্নালু একটা সকাল',
+        ],
+        rain: [
+          'ঝুম বৃষ্টির সাথে কফি কাপের রোমান্টিক আবহাওয়া',
+          'টিপটিপ বৃষ্টিতে জানালার পাশে বসে গান শোনার মতো দিন',
+          'বৃষ্টিভেজা বাতাসে খিচুড়ি আর ইলিশ ভাজার আমেজ',
+          'মুষলধারে বৃষ্টিতে কম্বল আর গরম চায়ের নরম দুপুর',
+        ],
+        thunderstorm: [
+          'মেঘের গর্জন আর বিদ্যুতের ঝলকানিতে নাটকীয় এক সন্ধ্যা',
+          'ঝড়-বৃষ্টির তীব্রতায় ঘরে বসে জানালার বাইরে তাকিয়ে থাকার মুহূর্ত',
+          'বজ্রপাতের শব্দে রোমাঞ্চকর, উত্তাল একটা আবহাওয়া',
+        ],
+        snow: [
+          'তুষারে ঢাকা সাদা, স্বপ্নিল একটা পরিবেশ',
+          'বরফের চাদরে মোড়া নিস্তব্ধ, মায়াবী দিন',
+        ],
+      };
+
+      function getTempBucket(temp) {
+        if (temp < 15) return 'cold';
+        if (temp < 26) return 'mild';
+        return 'hot';
+      }
+
+      function generateMood(category, temp) {
+        let pool;
+        if (category === 'clear') {
+          pool = MOOD_LINES.clear[getTempBucket(temp)];
+        } else {
+          pool = MOOD_LINES[category] || MOOD_LINES.partlyCloudy;
+        }
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      function showLoading() {
+        loadingEl.style.display = 'block';
+        errorEl.style.display = 'none';
+        resultEl.style.display = 'none';
+      }
+
+      function showError(msg) {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        errorEl.textContent = msg;
+        resultEl.style.display = 'none';
+      }
+
+      function showResult(cityLabel, temp, humidity, weatherInfo) {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'none';
+        resultEl.style.display = 'block';
+
+        emojiEl.textContent = weatherInfo.emoji;
+        cityNameEl.textContent = cityLabel;
+        tempEl.textContent = Math.round(temp) + '°C';
+        detailsEl.textContent = weatherInfo.label + (humidity !== null ? ' • আর্দ্রতা ' + humidity + '%' : '');
+        moodEl.textContent = '"' + generateMood(weatherInfo.category, temp) + '"';
+      }
+
+      async function fetchWeather(lat, lon, cityLabel) {
+        showLoading();
+        try {
+          const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto`);
+          if (!res.ok) throw new Error('weather fetch failed');
+          const data = await res.json();
+          const current = data.current;
+          const code = current.weather_code;
+          const weatherInfo = WEATHER_CODES[code] || { emoji: '🌡️', label: 'আবহাওয়া তথ্য', category: 'partlyCloudy' };
+          showResult(cityLabel, current.temperature_2m, current.relative_humidity_2m ?? null, weatherInfo);
+        } catch (err) {
+          showError('আবহাওয়া আনতে সমস্যা হয়েছে, আবার চেষ্টা করো।');
+        }
+      }
+
+      async function searchCity() {
+        const city = cityInput.value.trim();
+        if (!city) return;
+        showLoading();
+        try {
+          const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`);
+          const geoData = await geoRes.json();
+          if (!geoData.results || geoData.results.length === 0) {
+            showError('শহরটি খুঁজে পাওয়া যায়নি — বানান ঠিক আছে কিনা দেখো।');
+            return;
+          }
+          const place = geoData.results[0];
+          const label = place.name + (place.country ? ', ' + place.country : '');
+          fetchWeather(place.latitude, place.longitude, label);
+        } catch (err) {
+          showError('শহর খুঁজতে সমস্যা হয়েছে, আবার চেষ্টা করো।');
+        }
+      }
+
+      async function useMyLocation() {
+        if (!navigator.geolocation) {
+          showError('তোমার ব্রাউজার লোকেশন সাপোর্ট করে না।');
+          return;
+        }
+        showLoading();
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            const { latitude, longitude } = pos.coords;
+            let label = 'তোমার লোকেশন';
+            try {
+              const revRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+              const revData = await revRes.json();
+              label = (revData.city || revData.locality || 'তোমার লোকেশন') + (revData.countryName ? ', ' + revData.countryName : '');
+            } catch (e) {
+              // fall back to generic label
+            }
+            fetchWeather(latitude, longitude, label);
+          },
+          () => showError('লোকেশন পাওয়া যায়নি — অনুমতি দিতে হবে অথবা শহরের নাম লিখে সার্চ করো।')
+        );
+      }
+
+      searchBtn.addEventListener('click', searchCity);
+      cityInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') searchCity();
+      });
+      locationBtn.addEventListener('click', useMyLocation);
+    })();
+
     // --- Cursor Trail ---
     let lastTrailTime = 0;
     document.addEventListener('mousemove', (e) => {
