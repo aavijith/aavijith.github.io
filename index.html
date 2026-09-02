@@ -936,6 +936,111 @@
       line-height: 1.5;
     }
 
+    /* Crypto & Market Tracker */
+    .crypto-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .crypto-updated {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .crypto-refresh-btn {
+      background-color: var(--card-inner-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .crypto-refresh-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--text-main);
+    }
+
+    .crypto-refresh-btn.spinning {
+      animation: cryptoSpin 0.6s linear;
+    }
+
+    @keyframes cryptoSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .crypto-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 500px) {
+      .crypto-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .crypto-loading, .crypto-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 16px 0;
+    }
+
+    .crypto-error {
+      color: #f87171;
+    }
+
+    .crypto-card {
+      background-color: #121212;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      transition: border-color 0.25s ease, transform 0.2s ease, background-color 0.25s ease;
+    }
+
+    .crypto-card:hover {
+      border-color: var(--accent-color);
+      background-color: #161616;
+      transform: translateY(-2px);
+    }
+
+    .crypto-symbol {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f3f4f6;
+      margin-bottom: 6px;
+    }
+
+    .crypto-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .crypto-change {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .crypto-change.up {
+      color: #4ade80;
+    }
+
+    .crypto-change.down {
+      color: #f87171;
+    }
+
     /* Vibe & Mood Matcher */
     .weather-search {
       display: flex;
@@ -1354,6 +1459,18 @@
       </div>
     </section>
 
+    <!-- Crypto & Market Tracker -->
+    <section>
+      <h2 class="section-header">💰 Crypto & Market Tracker</h2>
+      <div class="crypto-header-row">
+        <span class="crypto-updated" id="cryptoUpdated">লোড হচ্ছে...</span>
+        <button class="crypto-refresh-btn" id="cryptoRefreshBtn">🔄 Refresh</button>
+      </div>
+      <div class="crypto-grid" id="cryptoGrid">
+        <div class="crypto-loading">দাম আনা হচ্ছে...</div>
+      </div>
+    </section>
+
     <!-- Personal Info -->
     <section>
       <h2 class="section-header">Personal Info</h2>
@@ -1715,6 +1832,71 @@
         card.dataset.open = isOpen ? 'false' : 'true';
       });
     });
+    // --- Crypto & Market Tracker (CoinGecko free API, no key needed) ---
+    (function initCryptoTracker() {
+      const gridEl = document.getElementById('cryptoGrid');
+      const updatedEl = document.getElementById('cryptoUpdated');
+      const refreshBtn = document.getElementById('cryptoRefreshBtn');
+
+      const COINS = [
+        { id: 'bitcoin', symbol: 'BTC', icon: '₿' },
+        { id: 'ethereum', symbol: 'ETH', icon: 'Ξ' },
+        { id: 'binancecoin', symbol: 'BNB', icon: '🔶' },
+        { id: 'dogecoin', symbol: 'DOGE', icon: '🐕' },
+      ];
+
+      function formatPrice(price) {
+        if (price >= 1) {
+          return '$' + price.toLocaleString('en-US', { maximumFractionDigits: 2 });
+        }
+        return '$' + price.toFixed(4);
+      }
+
+      async function loadPrices() {
+        updatedEl.textContent = 'লোড হচ্ছে...';
+        try {
+          const ids = COINS.map((c) => c.id).join(',');
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+          if (!res.ok) throw new Error('fetch failed');
+          const data = await res.json();
+
+          gridEl.innerHTML = '';
+          COINS.forEach((coin) => {
+            const coinData = data[coin.id];
+            if (!coinData) return;
+            const price = coinData.usd;
+            const change = coinData.usd_24h_change;
+            const isUp = change >= 0;
+
+            const card = document.createElement('div');
+            card.className = 'crypto-card';
+            card.innerHTML = `
+              <div class="crypto-symbol">${coin.icon} ${coin.symbol}</div>
+              <div class="crypto-price">${formatPrice(price)}</div>
+              <div class="crypto-change ${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(change).toFixed(2)}%</div>
+            `;
+            gridEl.appendChild(card);
+          });
+
+          const now = new Date();
+          updatedEl.textContent = 'সর্বশেষ আপডেট: ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        } catch (err) {
+          gridEl.innerHTML = '<div class="crypto-error">দাম আনতে সমস্যা হয়েছে — আবার চেষ্টা করো।</div>';
+          updatedEl.textContent = '';
+        }
+      }
+
+      refreshBtn.addEventListener('click', () => {
+        refreshBtn.classList.add('spinning');
+        loadPrices();
+        setTimeout(() => refreshBtn.classList.remove('spinning'), 600);
+      });
+
+      loadPrices();
+      // Auto-refresh every 60 seconds
+      setInterval(loadPrices, 60000);
+    })();
+
     // --- Interactive Bangladesh Travel Map ---
     (function initTravelMap() {
       const PLACE_INFO = {
